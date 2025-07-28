@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do List with Subtasks</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="todo-list">
+        <!-- App Header -->
+        <h2>
+          To-Do List
+          <img src="images/todo-list image.png" width="50" alt="Logo" />
+        </h2>
+
+        <!-- Input for main tasks -->
+        <div class="row">
+          <input type="text" id="input-box" placeholder="Add a new task..." />
+          <button onclick="addTask()">Add</button>
+        </div>
+
+        <!-- Task container -->
+        <ul id="todo-items">
+          <!-- Tasks and subtasks will be injected dynamically -->
+        </ul>
+      </div>
+    </div>
+
+    <!-- External JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
