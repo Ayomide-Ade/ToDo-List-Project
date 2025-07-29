@@ -1,93 +1,109 @@
 const inputBox = document.getElementById("input-box");
 const todoItems = document.getElementById("todo-items");
 
-/* === Add Main Task === */
 function addTask() {
-  if (inputBox.value.trim() === "") return; // ignore empty input
+  if (inputBox.value.trim() === "") return;
 
-  const li = document.createElement("li");
+  let li = document.createElement("li");
 
-  // Main task text
-  const taskText = document.createElement("div");
-  taskText.className = "task-text";
+  // Main task container
+  let mainTask = document.createElement("div");
+  mainTask.classList.add("main-task");
+
+  // Checkbox
+  let check = document.createElement("div");
+  check.classList.add("main-check");
+
+  // Task text
+  let taskText = document.createElement("span");
+  taskText.classList.add("task-text");
   taskText.textContent = inputBox.value;
-  li.appendChild(taskText);
 
-  // Delete button for main task
-  const del = document.createElement("span");
-  del.innerHTML = "\u00d7";
-  li.appendChild(del);
+  // Remove button
+  let removeBtn = document.createElement("span");
+  removeBtn.innerHTML = "\u00d7";
+  removeBtn.classList.add("remove-btn");
 
-  // Subtask input area
-  const subRow = document.createElement("div");
-  subRow.className = "sub-row";
-  const subInput = document.createElement("input");
+  mainTask.appendChild(check);
+  mainTask.appendChild(taskText);
+  li.appendChild(mainTask);
+  li.appendChild(removeBtn);
+
+  // Subtask input
+  let subRow = document.createElement("div");
+  subRow.classList.add("sub-row");
+
+  let subInput = document.createElement("input");
+  subInput.type = "text";
   subInput.placeholder = "Add a subtask...";
-  const subBtn = document.createElement("button");
-  subBtn.textContent = "+";
+
+  let subButton = document.createElement("button");
+  subButton.textContent = "+";
+
+  subButton.onclick = function () {
+    if (subInput.value.trim() !== "") {
+      let subList = li.querySelector(".subtasks");
+      let subItem = document.createElement("li");
+      subItem.textContent = subInput.value;
+
+      let subRemove = document.createElement("span");
+      subRemove.innerHTML = "\u00d7";
+      subItem.appendChild(subRemove);
+
+      subList.appendChild(subItem);
+      subInput.value = "";
+      saveData();
+    }
+  };
+
   subRow.appendChild(subInput);
-  subRow.appendChild(subBtn);
+  subRow.appendChild(subButton);
   li.appendChild(subRow);
 
-  // Subtasks container
-  const subList = document.createElement("ul");
-  subList.className = "subtasks";
+  let subList = document.createElement("ul");
+  subList.classList.add("subtasks");
   li.appendChild(subList);
-
-  /* === Add Subtask Event === */
-  subBtn.addEventListener("click", () => {
-    if (subInput.value.trim() === "") return;
-    const subLi = document.createElement("li");
-    subLi.textContent = subInput.value;
-
-    // Delete subtask button
-    const subDel = document.createElement("span");
-    subDel.innerHTML = "\u00d7";
-    subLi.appendChild(subDel);
-
-    // Toggle subtask completion
-    subLi.addEventListener("click", (e) => {
-      if (e.target.tagName === "LI") {
-        subLi.classList.toggle("checked");
-      }
-    });
-
-    // Remove subtask
-    subDel.addEventListener("click", () => {
-      subLi.remove();
-      saveData();
-    });
-
-    subList.appendChild(subLi);
-    subInput.value = "";
-    saveData();
-  });
 
   todoItems.appendChild(li);
   inputBox.value = "";
   saveData();
 }
 
-/* === Handle Main Task Completion & Deletion === */
 todoItems.addEventListener("click", function (e) {
-  if (e.target.tagName === "LI" && !e.target.closest(".subtasks")) {
-    const mainLi = e.target;
-    mainLi.classList.toggle("checked");
+  // Toggle main checkbox
+  if (e.target.classList.contains("main-check")) {
+    let li = e.target.closest("li");
+    li.classList.toggle("checked");
 
-    // Auto-complete all subtasks when main task is checked
-    if (mainLi.classList.contains("checked")) {
-      const allSubs = mainLi.querySelectorAll(".subtasks li");
-      allSubs.forEach(sub => sub.classList.add("checked"));
+    // Check/uncheck all subtasks with main task
+    let subtasks = li.querySelectorAll(".subtasks li");
+    if (li.classList.contains("checked")) {
+      subtasks.forEach(sub => sub.classList.add("checked"));
+    } else {
+      subtasks.forEach(sub => sub.classList.remove("checked"));
     }
-
     saveData();
-  } else if (e.target.tagName === "SPAN" && !e.target.closest(".subtasks")) {
+  }
+
+  // Remove main task
+  if (e.target.classList.contains("remove-btn")) {
+    e.target.closest("li").remove();
+    saveData();
+  }
+
+  // Toggle subtask checked
+  if (e.target.tagName === "LI" && e.target.closest(".subtasks")) {
+    e.target.classList.toggle("checked");
+    saveData();
+  }
+
+  // Remove subtask
+  if (e.target.closest(".subtasks") && e.target.tagName === "SPAN") {
     e.target.parentElement.remove();
     saveData();
   }
 });
 
-/* === Save and Load from LocalStorage === */
 function saveData() {
   localStorage.setItem("todoList", todoItems.innerHTML);
 }
@@ -96,3 +112,4 @@ function showTasks() {
   todoItems.innerHTML = localStorage.getItem("todoList") || "";
 }
 showTasks();
+localStorage.clear();

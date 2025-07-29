@@ -1,4 +1,3 @@
-/* === GLOBAL RESET === */
 * {
   margin: 0;
   padding: 0;
@@ -6,46 +5,95 @@
   box-sizing: border-box;
 }
 
-/* Full-screen center alignment */
 body {
-  background: linear-gradient(135deg, rgb(15, 155, 15), rgb(0, 180, 219));
+  background: url('images/office-background.jpeg') no-repeat center center fixed;
+  background-size: cover;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
+  color: #222;
 }
 
-/* Container holding the to-do list */
+/* ===== Header ===== */
+.header {
+  width: 100%;
+  text-align: center;
+  padding: 30px 10px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.header-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 5px;
+}
+
+.header-subtitle {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* ===== Container & List ===== */
 .container {
   width: 100%;
-  max-width: 480px;
+  max-width: 500px;
+  margin-top: 30px;
 }
 
-/* Main to-do card */
 .todo-list {
-  background: rgb(255, 255, 255);
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
   padding: 30px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* Header styling */
-.todo-list h2 {
+/* To-do list header with icon */
+.todo-header {
   display: flex;
-  justify-content: center;
   align-items: center;
-  color: rgb(34, 34, 34);
+  gap: 10px;
   margin-bottom: 20px;
 }
 
-/* === INPUT ROW === */
+.todo-header h2 {
+  font-size: 1.4rem;
+  color: #000;
+}
+
+.todo-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
+}
+
+/* Input Row */
 .row {
   display: flex;
-  background: rgb(243, 247, 255);
+  background: #f7f7f7;
   border-radius: 50px;
   padding-left: 20px;
   margin-bottom: 25px;
-  border: 2px solid rgb(0, 184, 148);
+  border: 1px solid #ddd;
 }
 
 .row input {
@@ -54,12 +102,13 @@ body {
   background: transparent;
   padding: 12px;
   font-size: 16px;
+  font-weight: 600;
   outline: none;
-  color: rgb(34, 34, 34);
+  color: #222;
 }
 
 .row button {
-  background: rgb(0, 184, 148);
+  background: #000;
   color: white;
   border: none;
   border-radius: 50px;
@@ -70,159 +119,153 @@ body {
 }
 
 .row button:hover {
-  background: rgb(0, 153, 117);
+  background: #444;
 }
 
-/* === MAIN TASKS === */
+/* ===== Main Tasks ===== */
 ul li {
   list-style: none;
   font-size: 16px;
-  padding: 14px 8px 14px 50px;
-  position: relative;
-  border-radius: 12px;
-  margin-bottom: 15px;
-  background: rgb(249, 249, 249);
-  border-left: 5px solid rgb(0, 184, 148);
+  padding: 12px 40px 12px 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  background: #fff;
+  border: 1px solid #ddd;
   transition: 0.2s;
+  display: flex;
+  flex-direction: column;
 }
 
 ul li:hover {
-  background: rgb(232, 255, 248);
+  background: #f3f3f3;
 }
 
-/* Checkbox icon for main task */
-ul li::before {
-  content: "";
+/* Main task row: checkbox + text + remove */
+.main-task {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 32px;
+}
+
+.main-check {
   position: absolute;
-  width: 26px;
-  height: 26px;
-  background-image: url(images/unchecked.png);
+  left: 8px;
+  width: 22px;
+  height: 22px;
+  background-image: url('images/unchecked.png');
   background-size: cover;
-  top: 20px;
-  left: 12px;
-}
-
-/* Checked main task */
-ul li.checked {
-  color: rgb(119, 119, 119);
-  background: rgb(211, 255, 240);
-  border-left-color: rgb(0, 206, 201);
-}
-
-ul li.checked::before {
-  background-image: url(images/checked.png);
-}
-
-/* Delete button for main task */
-ul li > span {
-  position: absolute;
-  right: 10px;
-  top: 18px;
-  font-size: 20px;
-  color: rgb(214, 48, 49);
   cursor: pointer;
-  transition: 0.2s;
 }
 
-ul li > span:hover {
-  color: rgb(255, 59, 59);
+.checked .main-check {
+  background-image: url('images/checked.png');
 }
 
-/* === MAIN TASK TEXT === */
 .task-text {
   font-weight: 600;
-  margin-bottom: 6px;
-  display: block;
-  padding-left: 5px;
-  color: rgb(34, 34, 34);
+  color: #222;
+  margin-left: 8px;
+  flex: 1;
+  text-align: left;
 }
 
-ul li.checked .task-text {
-  text-decoration: line-through;
-  color: rgb(119, 119, 119);
+ul li > .remove-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 18px;
+  color: #b00;
+  cursor: pointer;
 }
 
-/* === SUBTASK INPUT === */
+ul li > .remove-btn:hover {
+  color: #f00;
+}
+
+/* ===== Subtask Input ===== */
 .sub-row {
   display: flex;
   margin-top: 8px;
-  background: rgb(240, 249, 247);
+  background: #f0f0f0;
   border-radius: 8px;
   padding: 5px;
+  border: 1px solid #ddd;
+  max-width: 90%;
 }
 
 .sub-row input {
   flex: 1;
   border: none;
+  outline: none;
   background: transparent;
   padding: 5px;
   font-size: 14px;
-  outline: none;
+  font-weight: 500;
 }
 
 .sub-row button {
-  background: rgb(0, 184, 148);
+  background: #000;
   color: white;
   border: none;
   padding: 5px 10px;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .sub-row button:hover {
-  background: rgb(0, 153, 117);
+  background: #444;
 }
 
-/* === SUBTASKS === */
+/* ===== Subtasks ===== */
 .subtasks {
   margin-top: 6px;
-  margin-left: 20px;
+  margin-left: 0;
+  width: 100%;
 }
 
 .subtasks li {
-  background: rgb(232, 255, 248);
-  padding: 5px 8px 5px 32px; /* space for checkmark */
+  background: #f7f7f7;
+  padding: 8px 32px 8px 32px;
   margin-bottom: 4px;
   border-radius: 6px;
   position: relative;
   font-size: 14px;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
 }
 
-/* Subtask checkmark */
 .subtasks li::before {
   content: "";
   position: absolute;
+  left: 8px;
   width: 18px;
   height: 18px;
-  background-image: url(images/unchecked.png);
+  background-image: url('images/unchecked.png');
   background-size: cover;
-  top: 50%;
-  left: 8px;
-  transform: translateY(-50%);
-}
-
-/* Completed subtask */
-.subtasks li.checked {
-  text-decoration: line-through;
-  color: rgb(119, 119, 119);
 }
 
 .subtasks li.checked::before {
-  background-image: url(images/checked.png);
+  background-image: url('images/checked.png');
 }
 
-/* Delete button for subtasks */
 .subtasks li span {
   position: absolute;
   right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: rgb(214, 48, 49);
+  color: #b00;
   cursor: pointer;
   font-size: 16px;
 }
 
 .subtasks li span:hover {
-  color: rgb(255, 59, 59);
+  color: #f00;
+}
+
+.subtasks li.checked {
+  text-decoration: line-through;
+  color: #777;
+}
+.subtasks li.checked span {
+  color: #888;
 }
