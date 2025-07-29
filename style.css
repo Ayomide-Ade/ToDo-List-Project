@@ -125,15 +125,14 @@ body {
 /* ===== Main Tasks ===== */
 ul li {
   list-style: none;
-  font-size: 16px;
-  padding: 12px 40px 12px 12px;
-  border-radius: 8px;
   margin-bottom: 12px;
   background: #fff;
   border: 1px solid #ddd;
-  transition: 0.2s;
+  border-radius: 8px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
+  transition: 0.2s;
 }
 
 ul li:hover {
@@ -144,13 +143,18 @@ ul li:hover {
 .main-task {
   display: flex;
   align-items: center;
-  position: relative;
-  padding-left: 32px;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.main-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
 }
 
 .main-check {
-  position: absolute;
-  left: 8px;
   width: 22px;
   height: 22px;
   background-image: url('images/unchecked.png');
@@ -165,21 +169,18 @@ ul li:hover {
 .task-text {
   font-weight: 600;
   color: #222;
-  margin-left: 8px;
   flex: 1;
   text-align: left;
 }
 
-ul li > .remove-btn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 18px;
+.remove-btn {
   color: #b00;
   cursor: pointer;
+  font-size: 18px;
+  flex-shrink: 0;
 }
 
-ul li > .remove-btn:hover {
+.remove-btn:hover {
   color: #f00;
 }
 
@@ -221,7 +222,6 @@ ul li > .remove-btn:hover {
 /* ===== Subtasks ===== */
 .subtasks {
   margin-top: 6px;
-  margin-left: 0;
   width: 100%;
 }
 
@@ -266,6 +266,7 @@ ul li > .remove-btn:hover {
   text-decoration: line-through;
   color: #777;
 }
+
 .subtasks li.checked span {
   color: #888;
 }

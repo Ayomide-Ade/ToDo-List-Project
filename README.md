@@ -50,10 +50,11 @@ A modern, minimalistic **To-Do List** web application designed to help you organ
 
 ---
 
-## 🌐 Website is live at:
-*(Add your live link here)*
+## [🌐 Website is live at:](https://ayomide-ade.github.io/ToDo-List-Project/)
 
 ---
 
 ## 📷 Screenshots
-*(You can add screenshots here once your images are finalized)*
+![Homepage Screenshot](images/screenshot1.png)
+
+![Tasks](images/screenshot2.png)
