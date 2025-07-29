@@ -1,4 +1,3 @@
-/* ===== Base styles (from previous version) ===== */
 * {
   margin: 0;
   padding: 0;
@@ -6,32 +5,33 @@
   box-sizing: border-box;
 }
 
-/* ===== Stable Background ===== */
+/* ===== Fixed Background ===== */
 .bg-image {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: url('images/office-background.jpeg') center center no-repeat;
+  width: 100%;
+  height: 100%;
+  background: url('images/office-background.jpeg') no-repeat center center;
   background-size: cover;
+  background-attachment: fixed;
   z-index: -1;
-  overflow: hidden;
-  transform: translateZ(0);
-  will-change: transform;
 }
 
-html, body {
-  width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+/* Switch to mobile background on small screens */
+@media (max-width: 768px) {
+  .bg-image {
+    background: url('images/office-image.jpeg') no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll; /* Prevents shaking on mobile */
+  }
 }
 
 body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
   color: #222;
 }
 
@@ -39,8 +39,8 @@ body {
 .header {
   width: 100%;
   text-align: center;
-  padding: 20px 10px;
-  background: rgba(255, 255, 255, 0.85);
+  padding: 30px 10px;
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -49,25 +49,26 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .header-img {
-  width: 55px;
-  height: 55px;
+  width: 60px;
+  height: 60px;
   object-fit: contain;
   border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .header-title {
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #111;
+  margin-bottom: 5px;
 }
 
 .header-subtitle {
-  font-size: 0.95rem;
+  font-size: 1rem;
   color: #555;
 }
 
@@ -80,10 +81,10 @@ body {
 }
 
 .todo-list {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.9);
   border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 /* To-do list header with icon */
@@ -95,7 +96,7 @@ body {
 }
 
 .todo-header h2 {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: #000;
 }
 
@@ -103,6 +104,7 @@ body {
   width: 28px;
   height: 28px;
   object-fit: contain;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
 }
 
 /* Input Row */
@@ -110,8 +112,8 @@ body {
   display: flex;
   background: #f7f7f7;
   border-radius: 50px;
-  padding-left: 15px;
-  margin-bottom: 20px;
+  padding-left: 20px;
+  margin-bottom: 25px;
   border: 1px solid #ddd;
 }
 
@@ -145,26 +147,32 @@ body {
 ul li {
   list-style: none;
   font-size: 16px;
-  padding: 10px 12px;
+  padding: 12px;
   border-radius: 8px;
   margin-bottom: 12px;
   background: #fff;
   border: 1px solid #ddd;
+  transition: 0.2s;
   display: flex;
   flex-direction: column;
 }
 
-/* Main task row */
+ul li:hover {
+  background: #f3f3f3;
+}
+
+/* Main task row: checkbox + text + remove */
 .main-task {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding-left: 32px;
   position: relative;
-  padding-left: 30px;
 }
 
 .main-check {
   position: absolute;
-  left: 0;
+  left: 8px;
   width: 22px;
   height: 22px;
   background-image: url('images/unchecked.png');
@@ -185,8 +193,8 @@ ul li {
 }
 
 .remove-btn {
-  font-size: 18px;
   color: #b00;
+  font-size: 18px;
   cursor: pointer;
 }
 
@@ -202,6 +210,7 @@ ul li {
   border-radius: 8px;
   padding: 5px;
   border: 1px solid #ddd;
+  max-width: 90%;
 }
 
 .sub-row input {
@@ -211,6 +220,7 @@ ul li {
   background: transparent;
   padding: 5px;
   font-size: 14px;
+  font-weight: 500;
 }
 
 .sub-row button {
@@ -223,9 +233,14 @@ ul li {
   font-weight: bold;
 }
 
+.sub-row button:hover {
+  background: #444;
+}
+
 /* ===== Subtasks ===== */
 .subtasks {
   margin-top: 6px;
+  margin-left: 0;
   width: 100%;
 }
 
@@ -262,6 +277,10 @@ ul li {
   font-size: 16px;
 }
 
+.subtasks li span:hover {
+  color: #f00;
+}
+
 .subtasks li.checked {
   text-decoration: line-through;
   color: #777;
@@ -270,50 +289,16 @@ ul li {
   color: #888;
 }
 
-/* ✅ Responsive for small and extra-small screens */
-@media (max-width: 600px) {
+/* ===== Responsive Fix ===== */
+@media (max-width: 768px) {
   .header-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
   }
-  .row input {
-    font-size: 14px;
-    padding: 10px;
-  }
-  .row button {
-    padding: 8px 16px;
-    font-size: 14px;
+  .header-img {
+    width: 50px;
+    height: 50px;
   }
   .todo-list {
-    padding: 15px;
-  }
-}
-
-@media (max-width: 360px) {
-  .header-title {
-    font-size: 1.3rem;
-  }
-  .header-subtitle {
-    font-size: 0.85rem;
-  }
-  .row {
-    flex-direction: column;
-    border-radius: 10px;
-    padding-left: 0;
-  }
-  .row input {
-    width: 100%;
-    border-radius: 10px;
-    padding: 8px;
-  }
-  .row button {
-    margin-top: 8px;
-    width: 100%;
-    border-radius: 10px;
-  }
-  .task-text {
-    font-size: 14px;
-  }
-  .sub-row input {
-    font-size: 12px;
+    padding: 20px;
   }
 }
