@@ -125,14 +125,15 @@ body {
 /* ===== Main Tasks ===== */
 ul li {
   list-style: none;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 8px;
   margin-bottom: 12px;
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
+  transition: 0.2s;
   display: flex;
   flex-direction: column;
-  transition: 0.2s;
 }
 
 ul li:hover {
@@ -143,18 +144,13 @@ ul li:hover {
 .main-task {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.main-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
+  position: relative;
+  padding-left: 32px;
 }
 
 .main-check {
+  position: absolute;
+  left: 8px;
   width: 22px;
   height: 22px;
   background-image: url('images/unchecked.png');
@@ -169,15 +165,17 @@ ul li:hover {
 .task-text {
   font-weight: 600;
   color: #222;
+  margin-left: 8px;
   flex: 1;
   text-align: left;
 }
 
+/* Inline remove button */
 .remove-btn {
   color: #b00;
   cursor: pointer;
   font-size: 18px;
-  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .remove-btn:hover {
@@ -222,6 +220,7 @@ ul li:hover {
 /* ===== Subtasks ===== */
 .subtasks {
   margin-top: 6px;
+  margin-left: 0;
   width: 100%;
 }
 
@@ -234,6 +233,7 @@ ul li:hover {
   font-size: 14px;
   display: flex;
   align-items: center;
+  padding-left: 32px;
 }
 
 .subtasks li::before {
@@ -251,8 +251,7 @@ ul li:hover {
 }
 
 .subtasks li span {
-  position: absolute;
-  right: 8px;
+  margin-left: auto;
   color: #b00;
   cursor: pointer;
   font-size: 16px;
@@ -266,7 +265,90 @@ ul li:hover {
   text-decoration: line-through;
   color: #777;
 }
-
 .subtasks li.checked span {
   color: #888;
+}
+
+/* === ✅ Responsive Design === */
+@media (max-width: 768px) {
+  .container {
+    max-width: 90%;
+    margin-top: 20px;
+    padding: 0 10px;
+  }
+
+  .todo-list {
+    padding: 20px;
+  }
+
+  .header-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .header-img {
+    width: 50px;
+    height: 50px;
+  }
+
+  .header-title {
+    font-size: 1.6rem;
+  }
+
+  .header-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .row {
+    flex-direction: column;
+    padding-left: 10px;
+    border-radius: 12px;
+  }
+
+  .row input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .row button {
+    margin-top: 8px;
+    width: 100%;
+    border-radius: 12px;
+    padding: 10px;
+  }
+
+  ul li {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .task-text {
+    font-size: 14px;
+  }
+
+  .sub-row {
+    flex-direction: column;
+    max-width: 100%;
+  }
+
+  .sub-row button {
+    margin-top: 6px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-title {
+    font-size: 1.4rem;
+  }
+
+  .todo-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .header-img {
+    width: 40px;
+    height: 40px;
+  }
 }
