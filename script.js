@@ -4,50 +4,49 @@ const todoItems = document.getElementById("todo-items");
 function addTask() {
   if (inputBox.value.trim() === "") return;
 
-  let li = document.createElement("li");
+  const li = document.createElement("li");
 
-  // === Main task row
-  let mainRow = document.createElement("div");
-  mainRow.classList.add("main-task");
+  // Main Task
+  const mainTask = document.createElement("div");
+  mainTask.classList.add("main-task");
 
-  let check = document.createElement("div");
+  const check = document.createElement("div");
   check.classList.add("main-check");
 
-  let taskText = document.createElement("span");
-  taskText.classList.add("task-text");
-  taskText.textContent = inputBox.value;
+  const text = document.createElement("span");
+  text.classList.add("task-text");
+  text.textContent = inputBox.value;
 
-  let removeBtn = document.createElement("span");
-  removeBtn.classList.add("remove-btn");
-  removeBtn.innerHTML = "\u00d7";
+  const remove = document.createElement("span");
+  remove.classList.add("remove-btn");
+  remove.innerHTML = "\u00d7";
 
-  mainRow.appendChild(check);
-  mainRow.appendChild(taskText);
-  mainRow.appendChild(removeBtn);
+  mainTask.appendChild(check);
+  mainTask.appendChild(text);
+  mainTask.appendChild(remove);
+  li.appendChild(mainTask);
 
-  li.appendChild(mainRow);
-
-  // === Subtask input
-  let subRow = document.createElement("div");
+  // Subtask Input
+  const subRow = document.createElement("div");
   subRow.classList.add("sub-row");
 
-  let subInput = document.createElement("input");
+  const subInput = document.createElement("input");
   subInput.type = "text";
   subInput.placeholder = "Add a subtask...";
 
-  let subButton = document.createElement("button");
+  const subButton = document.createElement("button");
   subButton.textContent = "+";
 
   subButton.onclick = function () {
     if (subInput.value.trim() !== "") {
-      let subList = li.querySelector(".subtasks");
-      let subItem = document.createElement("li");
+      const subItem = document.createElement("li");
       subItem.textContent = subInput.value;
 
-      let subRemove = document.createElement("span");
+      const subRemove = document.createElement("span");
       subRemove.innerHTML = "\u00d7";
       subItem.appendChild(subRemove);
 
+      const subList = li.querySelector(".subtasks");
       subList.appendChild(subItem);
       subInput.value = "";
       saveData();
@@ -58,8 +57,7 @@ function addTask() {
   subRow.appendChild(subButton);
   li.appendChild(subRow);
 
-  // === Subtask list
-  let subList = document.createElement("ul");
+  const subList = document.createElement("ul");
   subList.classList.add("subtasks");
   li.appendChild(subList);
 
@@ -68,20 +66,39 @@ function addTask() {
   saveData();
 }
 
-// === Event delegation
+// Event Listener
 todoItems.addEventListener("click", function (e) {
-  if (e.target.classList.contains("main-check")) {
-    let parentLi = e.target.closest("li");
-    parentLi.classList.toggle("checked");
+  const li = e.target.closest("li");
+
+  // Toggle main task and subtasks together
+  if (li && e.target.closest(".main-task")) {
+    li.classList.toggle("checked");
+    const subtasks = li.querySelectorAll(".subtasks li");
+    subtasks.forEach(sub => {
+      if (li.classList.contains("checked")) {
+        sub.classList.add("checked");
+      } else {
+        sub.classList.remove("checked");
+      }
+    });
     saveData();
-  } else if (e.target.classList.contains("remove-btn")) {
-    e.target.closest("li").remove();
+  }
+
+  // Remove main task
+  if (e.target.classList.contains("remove-btn")) {
+    li.remove();
     saveData();
-  } else if (e.target.closest(".subtasks") && e.target.tagName === "LI") {
+  }
+
+  // Toggle subtask
+  if (e.target.tagName === "LI" && e.target.closest(".subtasks")) {
     e.target.classList.toggle("checked");
     saveData();
-  } else if (e.target.closest(".subtasks") && e.target.tagName === "SPAN") {
-    e.target.closest("li").remove();
+  }
+
+  // Remove subtask
+  if (e.target.closest(".subtasks") && e.target.tagName === "SPAN") {
+    e.target.parentElement.remove();
     saveData();
   }
 }, false);
