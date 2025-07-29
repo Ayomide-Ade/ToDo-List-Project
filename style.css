@@ -5,6 +5,15 @@
   box-sizing: border-box;
 }
 
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  color: #222;
+  overflow-x: hidden;
+}
+
 /* ===== Fixed Background ===== */
 .bg-image {
   position: fixed;
@@ -12,27 +21,18 @@
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: -1;
   background: url('images/office-background.jpeg') no-repeat center center;
   background-size: cover;
-  background-attachment: fixed;
-  z-index: -1;
+  will-change: transform;
 }
 
-/* Switch to mobile background on small screens */
+/* Mobile background */
 @media (max-width: 768px) {
   .bg-image {
     background: url('images/office-image.jpeg') no-repeat center center;
     background-size: cover;
-    background-attachment: scroll; /* Prevents shaking on mobile */
   }
-}
-
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 100vh;
-  color: #222;
 }
 
 /* ===== Header ===== */
@@ -72,12 +72,11 @@ body {
   color: #555;
 }
 
-/* ===== Container & List ===== */
+/* ===== Container ===== */
 .container {
   width: 100%;
   max-width: 500px;
   margin-top: 30px;
-  padding: 0 10px;
 }
 
 .todo-list {
@@ -87,7 +86,7 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-/* To-do list header with icon */
+/* To-do header */
 .todo-header {
   display: flex;
   align-items: center;
@@ -107,7 +106,7 @@ body {
   filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
 }
 
-/* Input Row */
+/* ===== Input Row ===== */
 .row {
   display: flex;
   background: #f7f7f7;
@@ -161,13 +160,13 @@ ul li:hover {
   background: #f3f3f3;
 }
 
-/* Main task row: checkbox + text + remove */
+/* Main task row: checkbox + text + remove inline */
 .main-task {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 32px;
   position: relative;
+  padding-left: 32px;
 }
 
 .main-check {
@@ -194,8 +193,9 @@ ul li:hover {
 
 .remove-btn {
   color: #b00;
-  font-size: 18px;
   cursor: pointer;
+  font-size: 18px;
+  margin-left: 10px;
 }
 
 .remove-btn:hover {
@@ -289,16 +289,41 @@ ul li:hover {
   color: #888;
 }
 
-/* ===== Responsive Fix ===== */
-@media (max-width: 768px) {
-  .header-title {
-    font-size: 1.6rem;
+/* ===== Responsive Fixes ===== */
+@media (max-width: 600px) {
+  .row {
+    flex-wrap: nowrap;
+    padding-left: 10px;
   }
-  .header-img {
-    width: 50px;
-    height: 50px;
+
+  .row input {
+    font-size: 14px;
+    padding: 10px;
   }
+
+  .row button {
+    padding: 8px 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    margin-left: 6px;
+  }
+
   .todo-list {
     padding: 20px;
+    margin: 0 10px;
+  }
+
+  .header-img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .header-title {
+    font-size: 1.4rem;
+  }
+
+  .todo-img {
+    width: 22px;
+    height: 22px;
   }
 }
