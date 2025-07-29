@@ -4,49 +4,52 @@ const todoItems = document.getElementById("todo-items");
 function addTask() {
   if (inputBox.value.trim() === "") return;
 
-  const li = document.createElement("li");
+  let li = document.createElement("li");
 
-  // Main Task
-  const mainTask = document.createElement("div");
+  // Main task row container
+  let mainTask = document.createElement("div");
   mainTask.classList.add("main-task");
 
-  const check = document.createElement("div");
+  // Checkbox icon
+  let check = document.createElement("div");
   check.classList.add("main-check");
-
-  const text = document.createElement("span");
-  text.classList.add("task-text");
-  text.textContent = inputBox.value;
-
-  const remove = document.createElement("span");
-  remove.classList.add("remove-btn");
-  remove.innerHTML = "\u00d7";
-
   mainTask.appendChild(check);
-  mainTask.appendChild(text);
-  mainTask.appendChild(remove);
+
+  // Task text
+  let taskText = document.createElement("span");
+  taskText.classList.add("task-text");
+  taskText.textContent = inputBox.value;
+  mainTask.appendChild(taskText);
+
+  // Remove button
+  let removeBtn = document.createElement("span");
+  removeBtn.innerHTML = "\u00d7";
+  removeBtn.classList.add("remove-btn");
+  mainTask.appendChild(removeBtn);
+
   li.appendChild(mainTask);
 
-  // Subtask Input
-  const subRow = document.createElement("div");
+  // Subtask input row
+  let subRow = document.createElement("div");
   subRow.classList.add("sub-row");
 
-  const subInput = document.createElement("input");
+  let subInput = document.createElement("input");
   subInput.type = "text";
   subInput.placeholder = "Add a subtask...";
 
-  const subButton = document.createElement("button");
+  let subButton = document.createElement("button");
   subButton.textContent = "+";
 
   subButton.onclick = function () {
     if (subInput.value.trim() !== "") {
-      const subItem = document.createElement("li");
+      let subList = li.querySelector(".subtasks");
+      let subItem = document.createElement("li");
       subItem.textContent = subInput.value;
 
-      const subRemove = document.createElement("span");
+      let subRemove = document.createElement("span");
       subRemove.innerHTML = "\u00d7";
       subItem.appendChild(subRemove);
 
-      const subList = li.querySelector(".subtasks");
       subList.appendChild(subItem);
       subInput.value = "";
       saveData();
@@ -57,7 +60,8 @@ function addTask() {
   subRow.appendChild(subButton);
   li.appendChild(subRow);
 
-  const subList = document.createElement("ul");
+  // Subtasks list
+  let subList = document.createElement("ul");
   subList.classList.add("subtasks");
   li.appendChild(subList);
 
@@ -66,13 +70,15 @@ function addTask() {
   saveData();
 }
 
-// Event Listener
+// Click handling for main tasks and subtasks
 todoItems.addEventListener("click", function (e) {
   const li = e.target.closest("li");
 
-  // Toggle main task and subtasks together
-  if (li && e.target.closest(".main-task")) {
+  // Toggle main task when clicking anywhere inside it (except buttons)
+  if (li && !e.target.classList.contains("remove-btn") && !e.target.closest(".sub-row")) {
     li.classList.toggle("checked");
+
+    // Toggle subtasks when main task is checked/unchecked
     const subtasks = li.querySelectorAll(".subtasks li");
     subtasks.forEach(sub => {
       if (li.classList.contains("checked")) {
@@ -81,6 +87,7 @@ todoItems.addEventListener("click", function (e) {
         sub.classList.remove("checked");
       }
     });
+
     saveData();
   }
 
@@ -90,8 +97,8 @@ todoItems.addEventListener("click", function (e) {
     saveData();
   }
 
-  // Toggle subtask
-  if (e.target.tagName === "LI" && e.target.closest(".subtasks")) {
+  // Toggle subtasks individually
+  if (e.target.closest(".subtasks") && e.target.tagName === "LI") {
     e.target.classList.toggle("checked");
     saveData();
   }
@@ -101,7 +108,7 @@ todoItems.addEventListener("click", function (e) {
     e.target.parentElement.remove();
     saveData();
   }
-}, false);
+});
 
 function saveData() {
   localStorage.setItem("todoList", todoItems.innerHTML);

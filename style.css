@@ -15,6 +15,14 @@ body {
   background-size: cover;
 }
 
+/* ===== Mobile Flexible Background ===== */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll; /* Allow scrolling on mobile */
+    background-size: cover;
+  }
+}
+
 /* ===== Header ===== */
 .header {
   width: 100%;
@@ -145,6 +153,7 @@ ul li {
 
 ul li:hover {
   background: #f3f3f3;
+  cursor: pointer;
 }
 
 .main-task {
@@ -161,7 +170,6 @@ ul li:hover {
   height: 22px;
   background-image: url('images/unchecked.png');
   background-size: cover;
-  cursor: pointer;
 }
 
 .checked .main-check {
