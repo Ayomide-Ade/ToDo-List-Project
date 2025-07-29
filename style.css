@@ -6,13 +6,22 @@
 }
 
 body {
-  background: url('images/office-background.jpeg') no-repeat center center fixed;
+  background: url('images/office-background.jpeg') no-repeat center center;
   background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
   color: #222;
+  background-attachment: fixed; /* Desktop */
+}
+
+/* Mobile fix: disable fixed background */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+    background-position: center;
+  }
 }
 
 /* ===== Header ===== */
@@ -57,6 +66,7 @@ body {
   width: 100%;
   max-width: 500px;
   margin-top: 30px;
+  padding: 0 10px;
 }
 
 .todo-list {
@@ -144,6 +154,7 @@ ul li:hover {
 .main-task {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   position: relative;
   padding-left: 32px;
 }
@@ -170,12 +181,11 @@ ul li:hover {
   text-align: left;
 }
 
-/* Inline remove button */
 .remove-btn {
+  font-size: 18px;
   color: #b00;
   cursor: pointer;
-  font-size: 18px;
-  margin-left: auto;
+  margin-left: 10px;
 }
 
 .remove-btn:hover {
@@ -233,7 +243,6 @@ ul li:hover {
   font-size: 14px;
   display: flex;
   align-items: center;
-  padding-left: 32px;
 }
 
 .subtasks li::before {
@@ -251,7 +260,8 @@ ul li:hover {
 }
 
 .subtasks li span {
-  margin-left: auto;
+  position: absolute;
+  right: 8px;
   color: #b00;
   cursor: pointer;
   font-size: 16px;
@@ -265,32 +275,13 @@ ul li:hover {
   text-decoration: line-through;
   color: #777;
 }
+
 .subtasks li.checked span {
   color: #888;
 }
 
-/* === ✅ Responsive Design === */
-@media (max-width: 768px) {
-  .container {
-    max-width: 90%;
-    margin-top: 20px;
-    padding: 0 10px;
-  }
-
-  .todo-list {
-    padding: 20px;
-  }
-
-  .header-content {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .header-img {
-    width: 50px;
-    height: 50px;
-  }
-
+/* ===== Responsive Design ===== */
+@media (max-width: 600px) {
   .header-title {
     font-size: 1.6rem;
   }
@@ -299,56 +290,27 @@ ul li:hover {
     font-size: 0.9rem;
   }
 
-  .row {
-    flex-direction: column;
-    padding-left: 10px;
-    border-radius: 12px;
+  .todo-list {
+    padding: 20px;
   }
 
   .row input {
-    width: 100%;
-    padding: 10px;
     font-size: 14px;
   }
 
   .row button {
-    margin-top: 8px;
-    width: 100%;
-    border-radius: 12px;
-    padding: 10px;
+    padding: 8px 16px;
   }
 
   ul li {
     font-size: 14px;
-    padding: 10px;
   }
 
   .task-text {
     font-size: 14px;
   }
 
-  .sub-row {
-    flex-direction: column;
-    max-width: 100%;
-  }
-
-  .sub-row button {
-    margin-top: 6px;
-    width: 100%;
-  }
-}
-
-@media (max-width: 480px) {
-  .header-title {
-    font-size: 1.4rem;
-  }
-
-  .todo-header h2 {
-    font-size: 1.2rem;
-  }
-
-  .header-img {
-    width: 40px;
-    height: 40px;
+  .subtasks li {
+    font-size: 13px;
   }
 }
