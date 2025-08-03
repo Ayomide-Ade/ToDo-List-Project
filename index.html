@@ -18,19 +18,22 @@
       </div>
     </div>
 
-    <!-- Container -->
-    <div class="container">
-      <div class="todo-list">
-        <div class="todo-header">
-          <img src="images/todo-list image.png" alt="List Icon" class="todo-img">
-          <h2>To-Do List</h2>
-        </div>
+    <!-- Input Container -->
+    <div class="input-container">
+      <div class="todo-header">
+        <img src="images/todo-list image.png" alt="List Icon" class="todo-img">
+        <h2>To-Do List</h2>
+      </div>
+      <div class="row">
+        <input type="text" id="input-box" placeholder="Add a new task..." />
+        <button onclick="addTask()">Add</button>
+      </div>
+    </div>
 
-        <div class="row">
-          <input type="text" id="input-box" placeholder="Add a new task..." />
-          <button onclick="addTask()">Add</button>
-        </div>
-
+    <!-- Tasks Container -->
+    <div class="tasks-wrapper">
+      <div class="tasks-container">
+        <h2 class="tasks-title">Your Tasks</h2>
         <ul id="todo-items"></ul>
       </div>
     </div>
