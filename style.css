@@ -98,6 +98,8 @@ body {
   padding: 30px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
+  width: 50%; /* Decreased to half the size */
+  align-self: center; /* Center the input section */
 }
 
 /* To-do list header with icon */
@@ -394,7 +396,10 @@ body {
     width: 50px;
     height: 50px;
   }
-  .input-section,
+  .input-section {
+    padding: 20px;
+    width: 100%; /* Full width on mobile */
+  }
   .tasks-section {
     padding: 20px;
   }
