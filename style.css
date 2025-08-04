@@ -22,7 +22,7 @@
 @media (max-width: 768px) {
   .bg-image {
     position: absolute; /* Changed from fixed */
-    background: url('images/office-image.jpeg') no-repeat center center;
+    background: url('images/office-background.jpeg') no-repeat center center;
     background-size: cover;
     background-attachment: scroll;
     min-height: 100vh; /* Ensure full height */
