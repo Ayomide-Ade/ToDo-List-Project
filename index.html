@@ -1,43 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-Do List</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+</head>
+<body>
+    <!-- Background Image -->
+    <div class="bg-image"></div>
+    
     <!-- Header -->
     <div class="header">
-      <div class="header-content">
-        <img src="images/app logo.png" alt="App Logo" class="header-img">
-        <div>
-          <h1 class="header-title">Organize Your Day</h1>
-          <p class="header-subtitle">Plan, Track & Complete Your Tasks</p>
+        <div class="header-content">
+            <img src="images/app logo.png" alt="App Logo" class="header-img">
+            <div>
+                <h1 class="header-title">Organize Your Day</h1>
+                <p class="header-subtitle">Plan, Track & Complete Your Tasks</p>
+            </div>
         </div>
-      </div>
     </div>
 
-    <!-- Input Container -->
-    <div class="input-container">
-      <div class="todo-header">
-        <img src="images/todo-list image.png" alt="List Icon" class="todo-img">
-        <h2>To-Do List</h2>
-      </div>
-      <div class="row">
-        <input type="text" id="input-box" placeholder="Add a new task..." />
-        <button onclick="addTask()">Add</button>
-      </div>
-    </div>
+    <!-- Container -->
+    <div class="container">
+        <!-- Input Section - Separate Container -->
+        <div class="input-section">
+            <div class="todo-header">
+                <img src="images/todo-list image.png" alt="List Icon" class="todo-img">
+                <h2>To-Do List</h2>
+            </div>
+            <div class="row">
+                <input type="text" id="input-box" placeholder="Add a new task..." />
+                <button onclick="addTask()">Add</button>
+            </div>
+        </div>
 
-    <!-- Tasks Container -->
-    <div class="tasks-wrapper">
-      <div class="tasks-container">
-        <h2 class="tasks-title">Your Tasks</h2>
-        <ul id="todo-items"></ul>
-      </div>
+        <!-- Tasks Section - Separate Container -->
+        <div class="tasks-section">
+            <div id="todo-items" class="todo-grid"></div>
+        </div>
     </div>
 
     <script src="script.js"></script>
-  </body>
+</body>
 </html>

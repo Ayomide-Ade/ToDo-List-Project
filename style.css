@@ -5,14 +5,37 @@
   box-sizing: border-box;
 }
 
+/* ===== Fixed Background ===== */
+.bg-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('images/office-background.jpeg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  z-index: -1;
+}
+
+/* Switch to mobile background on small screens */
+@media (max-width: 768px) {
+  .bg-image {
+    position: absolute; /* Changed from fixed */
+    background: url('images/office-background.jpeg') no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll;
+    min-height: 100vh; /* Ensure full height */
+  }
+}
+
 body {
-  color: #222;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background: url('images/office-background.jpeg') no-repeat center center fixed;
-  background-size: cover;
+  color: #222;
+  position: relative; /* Added for mobile background */
 }
 
 /* ===== Header ===== */
@@ -23,6 +46,8 @@ body {
   background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(6px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
 }
 
 .header-content {
@@ -30,7 +55,6 @@ body {
   align-items: center;
   justify-content: center;
   gap: 15px;
-  flex-wrap: wrap;
 }
 
 .header-img {
@@ -53,51 +77,63 @@ body {
   color: #555;
 }
 
-/* ===== Input Section ===== */
-.input-container {
-  margin-top: 20px;
-  max-width: 400px;
-  width: 90%;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+/* ===== Container ===== */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-top: 30px;
+  padding: 0 10px;
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
+/* ===== Input Section (Separate Container) ===== */
+.input-section {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* To-do list header with icon */
 .todo-header {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 .todo-header h2 {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #000;
 }
 
 .todo-img {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   object-fit: contain;
-  flex-shrink: 0;
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
 }
 
+/* Input Row */
 .row {
   display: flex;
-  align-items: center;
   background: #f7f7f7;
   border-radius: 50px;
-  padding-left: 12px;
+  padding-left: 20px;
   border: 1px solid #ddd;
-  overflow: hidden;
 }
 
 .row input {
   flex: 1;
   border: none;
   background: transparent;
-  padding: 10px;
+  padding: 12px;
   font-size: 16px;
   font-weight: 600;
   outline: none;
@@ -109,193 +145,301 @@ body {
   color: white;
   border: none;
   border-radius: 50px;
-  padding: 8px 16px;
+  padding: 10px 20px;
   cursor: pointer;
   font-weight: bold;
   transition: 0.2s;
-  margin-left: 8px;
 }
 
 .row button:hover {
   background: #444;
 }
 
-/* ===== Tasks Section ===== */
-.tasks-wrapper {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 20px;
-}
-
-.tasks-container {
+/* ===== Tasks Section (Separate Container) ===== */
+.tasks-section {
   background: rgba(255, 255, 255, 0.9);
   border-radius: 12px;
   padding: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  width: 95%;
-  max-width: 900px;
+  backdrop-filter: blur(10px);
+  margin-bottom: 30px;
+  min-height: 200px; /* Minimum height even when empty */
 }
 
-.tasks-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 15px;
-  text-align: center;
+/* ===== Flexible Grid Layout ===== */
+.todo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 15px;
+  align-items: start;
 }
 
-/* ===== Main Task ===== */
-#todo-items {
+/* ===== Main Tasks (Clickable Container) ===== */
+.task-item {
   list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-#todo-items li {
   background: #fff;
-  border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 6px;
-  margin-bottom: 8px;
+  border: 1px solid #ddd;
+  transition: 0.3s;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  width: 280px; /* fixed main task width */
+  padding: 0;
+  align-self: start;
+  cursor: pointer; /* Make entire container clickable */
+  position: relative;
 }
 
+.task-item:hover {
+  background: #f8f8f8;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Checked state for entire task */
+.task-item.checked {
+  background: #f0f8ff;
+  border-color: #4CAF50;
+  box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+}
+
+.task-item.checked .task-text {
+  text-decoration: line-through;
+  color: #777;
+}
+
+.task-item.checked .main-task {
+  background: rgba(76, 175, 80, 0.1);
+}
+
+/* Main task row: checkbox + text + remove */
 .main-task {
   display: flex;
   align-items: center;
-  gap: 6px;
-  cursor: pointer;
+  justify-content: space-between;
+  padding: 12px 12px 12px 36px;
+  position: relative;
+  border-bottom: 1px solid #eee;
+  border-radius: 8px 8px 0 0;
+  transition: 0.2s;
 }
 
 .main-check {
-  width: 18px;
-  height: 18px;
+  position: absolute;
+  left: 8px;
+  width: 22px;
+  height: 22px;
   background-image: url('images/unchecked.png');
   background-size: cover;
-  flex-shrink: 0;
+  cursor: pointer;
+  z-index: 2; /* Ensure checkbox is clickable */
 }
 
-.checked .main-check {
+.task-item.checked .main-check {
   background-image: url('images/checked.png');
 }
 
 .task-text {
-  font-weight: 700;
+  font-weight: 600;
   color: #222;
-  font-size: 14px;
   flex: 1;
+  text-align: left;
+  font-size: 16px;
+  pointer-events: none; /* Prevent text selection interfering with click */
 }
 
 .remove-btn {
-  font-size: 16px;
   color: #b00;
+  font-size: 18px;
   cursor: pointer;
-  flex-shrink: 0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: 0.2s;
+  z-index: 2; /* Ensure remove button is clickable */
 }
 
 .remove-btn:hover {
   color: #f00;
+  background: rgba(255, 0, 0, 0.1);
 }
 
-/* ===== Subtasks Section ===== */
-.subtasks-container {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  width: 100%;
-}
-
-/* Subtask input row */
+/* ===== Subtask Input ===== */
 .sub-row {
   display: flex;
-  align-items: center;
-  background: #f9f9f9;
+  margin: 8px 12px 8px 12px;
+  background: #f5f5f5;
   border-radius: 6px;
-  padding: 3px 5px;
+  padding: 6px;
   border: 1px solid #ddd;
-  gap: 4px;
-  width: 100%;
+  gap: 6px;
 }
 
 .sub-row input {
   flex: 1;
   border: none;
-  background: transparent;
-  font-size: 13px;
-  font-weight: 500;
   outline: none;
-  padding: 3px;
+  background: transparent;
+  padding: 6px 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
 }
 
 .sub-row button {
   background: #000;
-  color: #fff;
+  color: white;
   border: none;
-  padding: 3px 8px;
+  padding: 6px 12px;
   border-radius: 4px;
-  font-weight: bold;
   cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 2;
 }
 
-/* Individual Subtasks */
+.sub-row button:hover {
+  background: #444;
+}
+
+/* ===== Subtasks ===== */
 .subtasks {
-  list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  width: 100%; /* match main task width */
+  width: 100%;
 }
 
-.subtasks li {
+.subtasks .subtask-item {
+  list-style: none;
+  background: #f9f9f9;
+  margin: 4px 12px;
+  border-radius: 6px;
+  position: relative;
+  font-size: 14px;
   display: flex;
   align-items: center;
-  background: #f9f9f9;
-  border-radius: 4px;
-  padding: 2px 4px;
-  border: 1px solid #ddd;
-  gap: 4px;
-  width: 100%; /* full width under main task */
-  font-size: 13px;
-  line-height: 1;
+  padding: 8px 8px 8px 32px;
+  border: 1px solid #e5e5e5;
+  min-height: 36px;
+  word-wrap: break-word;
+  cursor: pointer; /* Make subtask clickable */
+  transition: 0.2s;
 }
 
-.subtasks li .sub-check {
-  width: 14px;
-  height: 14px;
+.subtasks .subtask-item:hover {
+  background: #f0f0f0;
+}
+
+.subtasks .subtask-item::before {
+  content: "";
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  height: 16px;
   background-image: url('images/unchecked.png');
   background-size: cover;
+  flex-shrink: 0;
 }
 
-.subtasks li.checked .sub-check {
+.subtasks .subtask-item.checked::before {
   background-image: url('images/checked.png');
 }
 
-.sub-text {
+.subtask-text {
   flex: 1;
-  font-weight: 600;
-  font-size: 13px;
+  margin-right: 8px;
+  line-height: 1.3;
+  color: #444;
+  pointer-events: none;
 }
 
-.subtasks li.checked .sub-text {
+.subtasks .subtask-item.checked {
+  background: #f0f8f0;
+  border-color: #4CAF50;
+}
+
+.subtasks .subtask-item.checked .subtask-text {
   text-decoration: line-through;
   color: #777;
 }
 
-.subtasks .remove-btn {
-  font-size: 14px;
+.subtask-remove {
   color: #b00;
   cursor: pointer;
+  font-size: 16px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  transition: 0.2s;
   flex-shrink: 0;
+  z-index: 2;
 }
 
-.subtasks .remove-btn:hover {
+.subtask-remove:hover {
   color: #f00;
+  background: rgba(255, 0, 0, 0.1);
+}
+
+/* ===== Empty State ===== */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #888;
+  font-style: italic;
+}
+
+/* ===== Responsive Design ===== */
+@media (max-width: 768px) {
+  .header-title {
+    font-size: 1.6rem;
+  }
+  .header-img {
+    width: 50px;
+    height: 50px;
+  }
+  .input-section,
+  .tasks-section {
+    padding: 20px;
+  }
+  .container {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+  
+  /* Single column on mobile */
+  .todo-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  /* Adjust task sizing for mobile */
+  .task-item {
+    min-width: 100%;
+  }
+  
+  .main-task {
+    padding: 10px 10px 10px 32px;
+  }
+  
+  .sub-row {
+    margin: 6px 10px;
+  }
+  
+  .subtasks .subtask-item {
+    margin: 3px 10px;
+    padding: 6px 6px 6px 28px;
+  }
+}
+
+/* Ensure proper mobile scrolling */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+  
+  body {
+    min-height: 100vh;
+  }
+  
+  .bg-image {
+    position: absolute;
+    min-height: 100%;
+  }
 }
