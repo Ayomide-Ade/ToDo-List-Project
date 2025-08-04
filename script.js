@@ -269,7 +269,4 @@ function reattachEventListeners() {
 // Initialize the app
 showTasks();
 
-function clearData() {
-  localStorage.removeItem("todoList");
-  location.reload(); // Refresh to see changes
-}
+localStorage.clear();
