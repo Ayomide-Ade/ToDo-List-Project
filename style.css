@@ -397,33 +397,34 @@ body {
     height: 50px;
   }
   .input-section {
-    padding: 10px; /* Further reduced padding */
-    width: calc(100% - 20px); /* Account for container padding */
-    margin: 0 10px; /* Add margin instead of relying on container */
+    padding: 8px; /* Much smaller padding */
+    width: calc(100% - 10px); /* Very tight width */
+    margin: 0 5px; /* Minimal margin */
   }
   .tasks-section {
     padding: 20px;
   }
   .container {
     max-width: 100%;
-    padding: 0 5px; /* Minimal container padding */
+    padding: 0; /* No container padding */
   }
   
   /* Fix input row on mobile */
   .row {
-    padding-left: 10px; /* Further reduced left padding */
+    padding-left: 5px; /* Minimal left padding */
     margin: 0; /* Remove any margin */
+    padding-right: 5px; /* Add small right padding */
   }
   
   .row input {
-    padding: 10px 8px; /* Reduced input padding */
+    padding: 8px 5px; /* Much smaller input padding */
     font-size: 14px; /* Smaller font */
   }
   
   .row button {
-    padding: 10px 12px; /* Smaller button padding */
-    font-size: 14px; /* Smaller font */
-    min-width: 50px; /* Minimum width to prevent shrinking */
+    padding: 8px 10px; /* Much smaller button padding */
+    font-size: 13px; /* Smaller font */
+    min-width: 45px; /* Smaller minimum width */
   }
   
   /* Single column on mobile */
