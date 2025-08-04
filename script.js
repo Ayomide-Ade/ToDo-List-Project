@@ -269,11 +269,7 @@ function reattachEventListeners() {
 // Initialize the app
 showTasks();
 
-// Clear data function (utility)
-function clearAllTasks() {
-  if (confirm("Are you sure you want to clear all tasks? This cannot be undone.")) {
-    localStorage.removeItem("todoList");
-    todoItems.innerHTML = "";
-    updateEmptyState();
-  }
+function clearData() {
+  localStorage.removeItem("todoList");
+  location.reload(); // Refresh to see changes
 }
