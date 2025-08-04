@@ -206,65 +206,90 @@ function updateEmptyState() {
   }
 }
 
-// Enhanced save function
+// Enhanced save function - Save structured data instead of HTML
 function saveData() {
   try {
-    localStorage.setItem("todoList", todoItems.innerHTML);
+    let tasks = [];
+    let taskItems = todoItems.querySelectorAll(".task-item");
+    
+    taskItems.forEach(taskItem => {
+      let taskData = {
+        id: taskItem.getAttribute("data-task-id"),
+        text: taskItem.querySelector(".task-text").textContent,
+        checked: taskItem.classList.contains("checked"),
+        subtasks: []
+      };
+      
+      let subtasks = taskItem.querySelectorAll(".subtask-item");
+      subtasks.forEach(subtask => {
+        taskData.subtasks.push({
+          id: subtask.getAttribute("data-subtask-id"),
+          text: subtask.querySelector(".subtask-text").textContent,
+          checked: subtask.classList.contains("checked")
+        });
+      });
+      
+      tasks.push(taskData);
+    });
+    
+    localStorage.setItem("todoList", JSON.stringify(tasks));
   } catch (error) {
     console.log("Could not save to localStorage:", error);
   }
 }
 
-// Enhanced load function
+// Enhanced load function - Rebuild from structured data
 function showTasks() {
   try {
     let savedData = localStorage.getItem("todoList");
     if (savedData) {
-      todoItems.innerHTML = savedData;
+      let tasks = JSON.parse(savedData);
+      todoItems.innerHTML = ""; // Clear first
       
-      // Reattach event listeners for dynamically loaded content
-      reattachEventListeners();
+      tasks.forEach(taskData => {
+        // Recreate task using existing function logic
+        let originalValue = inputBox.value;
+        inputBox.value = taskData.text;
+        addTask();
+        
+        let newTask = todoItems.lastElementChild;
+        if (newTask) {
+          newTask.setAttribute("data-task-id", taskData.id);
+          
+          // Set checked state
+          if (taskData.checked) {
+            newTask.classList.add("checked");
+          }
+          
+          // Add subtasks
+          taskData.subtasks.forEach(subtaskData => {
+            addSubtask(newTask, subtaskData.text);
+            let newSubtask = newTask.querySelector(".subtasks").lastElementChild;
+            if (newSubtask) {
+              newSubtask.setAttribute("data-subtask-id", subtaskData.id);
+              if (subtaskData.checked) {
+                newSubtask.classList.add("checked");
+              }
+            }
+          });
+        }
+        
+        inputBox.value = originalValue;
+      });
     }
     updateEmptyState();
   } catch (error) {
     console.log("Could not load from localStorage:", error);
+    // If JSON parsing fails, try to clear corrupted data
+    localStorage.removeItem("todoList");
   }
 }
 
-// Function to reattach event listeners after loading from localStorage
-function reattachEventListeners() {
-  // Reattach subtask input event listeners
-  let subButtons = todoItems.querySelectorAll(".sub-row button");
-  let subInputs = todoItems.querySelectorAll(".sub-row input");
-  
-  subButtons.forEach(button => {
-    button.onclick = function(e) {
-      e.stopPropagation();
-      let subInput = button.parentElement.querySelector("input");
-      let taskItem = button.closest(".task-item");
-      
-      if (subInput.value.trim() !== "") {
-        addSubtask(taskItem, subInput.value.trim());
-        subInput.value = "";
-        saveData();
-      }
-    };
-  });
-  
-  subInputs.forEach(input => {
-    input.addEventListener("keypress", function(e) {
-      if (e.key === "Enter") {
-        e.stopPropagation();
-        let button = input.parentElement.querySelector("button");
-        button.click();
-      }
-    });
-    
-    input.addEventListener("click", function(e) {
-      e.stopPropagation();
-    });
-  });
-}
-
 // Initialize the app
+document.addEventListener('DOMContentLoaded', function() {
+  showTasks();
+});
+
+// Also call showTasks when the script loads (fallback)
 showTasks();
+
