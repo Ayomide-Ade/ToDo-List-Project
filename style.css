@@ -22,7 +22,7 @@
 @media (max-width: 768px) {
   .bg-image {
     position: absolute; /* Changed from fixed */
-    background: url('images/office-background.jpeg') no-repeat center center;
+    background: url('images/office-image.jpeg') no-repeat center center;
     background-size: cover;
     background-attachment: scroll;
     min-height: 100vh; /* Ensure full height */
@@ -397,7 +397,7 @@ body {
     height: 50px;
   }
   .input-section {
-    padding: 20px;
+    padding: 15px; /* Reduced padding on mobile */
     width: 100%; /* Full width on mobile */
   }
   .tasks-section {
@@ -405,7 +405,17 @@ body {
   }
   .container {
     max-width: 100%;
-    padding: 0 15px;
+    padding: 0 10px; /* Reduced container padding */
+  }
+  
+  /* Fix input row on mobile */
+  .row {
+    padding-left: 15px; /* Reduced left padding */
+  }
+  
+  .row button {
+    padding: 8px 15px; /* Reduced button padding */
+    font-size: 14px; /* Smaller font */
   }
   
   /* Single column on mobile */

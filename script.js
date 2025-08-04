@@ -268,5 +268,3 @@ function reattachEventListeners() {
 
 // Initialize the app
 showTasks();
-
-localStorage.clear();
