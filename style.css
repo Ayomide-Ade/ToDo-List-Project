@@ -18,14 +18,13 @@
   z-index: -1;
 }
 
-/* Switch to mobile background on small screens */
 @media (max-width: 768px) {
   .bg-image {
-    position: absolute; /* Changed from fixed */
+    position: absolute;
     background: url('images/office-background.jpeg') no-repeat center center;
     background-size: cover;
     background-attachment: scroll;
-    min-height: 100vh; /* Ensure full height */
+    min-height: 100vh;
   }
 }
 
@@ -35,7 +34,7 @@ body {
   align-items: center;
   min-height: 100vh;
   color: #222;
-  position: relative; /* Added for mobile background */
+  position: relative;
 }
 
 /* ===== Header ===== */
@@ -98,11 +97,10 @@ body {
   padding: 30px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
-  width: 50%; /* Decreased to half the size */
-  align-self: center; /* Center the input section */
+  width: 50%;
+  align-self: center;
 }
 
-/* To-do list header with icon */
 .todo-header {
   display: flex;
   align-items: center;
@@ -122,7 +120,6 @@ body {
   filter: drop-shadow(0 1px 3px rgba(0,0,0,0.15));
 }
 
-/* Input Row */
 .row {
   display: flex;
   background: #f7f7f7;
@@ -165,7 +162,7 @@ body {
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   margin-bottom: 30px;
-  min-height: 200px; /* Minimum height even when empty */
+  min-height: 200px;
 }
 
 /* ===== Flexible Grid Layout ===== */
@@ -187,7 +184,7 @@ body {
   flex-direction: column;
   padding: 0;
   align-self: start;
-  cursor: pointer; /* Make entire container clickable */
+  cursor: pointer;
   position: relative;
 }
 
@@ -197,7 +194,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* Checked state for entire task */
 .task-item.checked {
   background: #f0f8ff;
   border-color: #4CAF50;
@@ -213,7 +209,6 @@ body {
   background: rgba(76, 175, 80, 0.1);
 }
 
-/* Main task row: checkbox + text + remove */
 .main-task {
   display: flex;
   align-items: center;
@@ -233,7 +228,7 @@ body {
   background-image: url('images/unchecked.png');
   background-size: cover;
   cursor: pointer;
-  z-index: 2; /* Ensure checkbox is clickable */
+  z-index: 2;
 }
 
 .task-item.checked .main-check {
@@ -246,7 +241,7 @@ body {
   flex: 1;
   text-align: left;
   font-size: 16px;
-  pointer-events: none; /* Prevent text selection interfering with click */
+  pointer-events: none;
 }
 
 .remove-btn {
@@ -256,7 +251,7 @@ body {
   padding: 4px 8px;
   border-radius: 4px;
   transition: 0.2s;
-  z-index: 2; /* Ensure remove button is clickable */
+  z-index: 2;
 }
 
 .remove-btn:hover {
@@ -322,7 +317,7 @@ body {
   border: 1px solid #e5e5e5;
   min-height: 36px;
   word-wrap: break-word;
-  cursor: pointer; /* Make subtask clickable */
+  cursor: pointer;
   transition: 0.2s;
 }
 
@@ -392,76 +387,76 @@ body {
   .header-title {
     font-size: 1.6rem;
   }
+
   .header-img {
     width: 50px;
     height: 50px;
   }
+
   .input-section {
-    padding: 8px; /* Much smaller padding */
-    width: calc(100% - 10px); /* Very tight width */
-    margin: 0 5px; /* Minimal margin */
+    padding: 8px;
+    width: calc(100% - 10px);
+    margin: 0 5px;
   }
+
   .tasks-section {
     padding: 20px;
   }
+
   .container {
     max-width: 100%;
-    padding: 0; /* No container padding */
+    padding: 0;
   }
-  
-  /* Fix input row on mobile */
+
   .row {
-    padding-left: 5px; /* Minimal left padding */
-    margin: 0; /* Remove any margin */
-    padding-right: 5px; /* Add small right padding */
+    padding-left: 5px;
+    margin: 0;
+    padding-right: 5px;
   }
-  
+
   .row input {
-    padding: 8px 5px; /* Much smaller input padding */
-    font-size: 14px; /* Smaller font */
+    padding: 8px 5px;
+    font-size: 14px;
   }
-  
+
   .row button {
-    padding: 8px 10px; /* Much smaller button padding */
-    font-size: 13px; /* Smaller font */
-    min-width: 45px; /* Smaller minimum width */
+    padding: 8px 10px;
+    font-size: 13px;
+    min-width: 45px;
   }
-  
-  /* Single column on mobile */
+
   .todo-grid {
     grid-template-columns: 1fr;
     gap: 12px;
   }
-  
-  /* Adjust task sizing for mobile */
+
   .task-item {
     min-width: 100%;
   }
-  
+
   .main-task {
     padding: 10px 10px 10px 32px;
   }
-  
+
   .sub-row {
     margin: 6px 10px;
   }
-  
+
   .subtasks .subtask-item {
     margin: 3px 10px;
     padding: 6px 6px 6px 28px;
   }
 }
 
-/* Ensure proper mobile scrolling */
 @media (max-width: 768px) {
   html, body {
     overflow-x: hidden;
   }
-  
+
   body {
     min-height: 100vh;
   }
-  
+
   .bg-image {
     position: absolute;
     min-height: 100%;

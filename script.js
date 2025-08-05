@@ -289,7 +289,3 @@ function showTasks() {
 document.addEventListener('DOMContentLoaded', function() {
   showTasks();
 });
-
-// Also call showTasks when the script loads (fallback)
-showTasks();
-
